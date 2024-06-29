@@ -1,0 +1,43 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/SingalStatus",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "sample-dapr-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/SingalStatus",
+      "QoSOptions": {
+        "TimeoutValue": 320000
+      },
+      "Priority": 50,
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/WeatherForecast/GetWeatherForecast",
+      "DownstreamScheme": "http",
+      "RouteClaimsRequirement": {
+        "Get_Weather_Forecast": "true"
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+          "sample-dapr-api"
+        ]
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "sample-dapr-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/WeatherForecast/GetWeatherForecast",
+      "UpstreamHttpMethod": [
+        "GET"
+      ]
+    }
+  ]
+}
